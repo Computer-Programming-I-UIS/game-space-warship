@@ -1,27 +1,32 @@
-int y=300;
-int x=400;
+Asteroid a;
+Ship ship;
+ArrayList<Asteroid> asteroids;
+
 void setup(){
-size(800,600);
+  size(800, 600);
+  asteroids = new ArrayList<Asteroid>();
+  createAsteroids();
+  ship = new Ship(width*.5, height*.5);
 }
 
 void draw(){
   background(0);
-  fill(0,255,0);
-ellipse(x,y,50,50);
-if(keyPressed){
-  if(key == 'w'){
-    y=y-1;
-    }
-    else if(key == 's'){
-    y=y+1;
+  if (asteroids.size() > 0){
+    for(Asteroid a: asteroids){
+      a.show();
+      a.update();
     }
   }
-  if(keyPressed){
-  if(key == 'a'){
-    x=x-1;
-    }
-    else if(key == 'd'){
-    x=x+1;
-    }
+  else{
+    createAsteroids();
+  }
+  ship.show();
+  ship.update();
+}
+
+void createAsteroids(){
+    for(int i = 0; i < 4; i++){
+    a = new Asteroid(random(width), random(height), 10);
+    asteroids.add(a);
   }
 }
