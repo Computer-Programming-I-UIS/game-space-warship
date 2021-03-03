@@ -1,4 +1,7 @@
 import co.jimezam.util.Dialogo;
+import ddf.minim.*;
+Minim minim;
+AudioPlayer player,player2;
 /*
 se importa la libreria oscp5 para iniciar la interaccion 
 con pureData
@@ -51,6 +54,9 @@ int relleno = relleno_disparos;
 
 
 void setup(){
+  minim=new Minim(this);
+  player=minim.loadFile("laser");
+  player2=minim.loadFile("explosion");
   size(500,600);
   smooth();
   nave=loadImage("nave.png");      
@@ -165,6 +171,7 @@ void keyReleased() {
        OscMessage disparo = new OscMessage("disparo");
        disparo.add(sonido_ON);
        oscP5.send(disparo, myRemoteLocation);
+       player.play();
     }
     if(keyCode == 65 /*letra A*/){
       Dialogo.mostrar("","Pausa", Dialogo.TIPO_ADVERTENCIA);//pausa el juego
@@ -199,6 +206,7 @@ void cannon(int shotX)
         bally[i] = 0;
 // carga es puntaje
         score++;
+        player2.play();
       }   
     }
    
